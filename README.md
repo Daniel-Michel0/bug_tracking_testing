@@ -1,8 +1,25 @@
-# Proyecto-IS2
-grupo 7
+# Proyecto Fundamentos de Testing y aseguramiento de calidad
+grupo 4
 
-Modulos utilizados:
-Django
-psycopg2
-Pillow
-multiupload
+### Requisitos previos:
+Se debe tener instalado o instalar postgresql.
+
+Se recomienda crear y ejecutar todo el código en un ambiente virtual, este se puede crear con:
+<br>
+```python venv .venv```
+<br>
+Luego se activa el ambiente virtual con el comando:
+<br>
+```.\.venv\Scrips\activate```
+
+### Instalación de dependencias
+Para instalar las dependencias se utiliza el comando:
+<br>
+```pip install -r requirements.txt```
+
+### Ejecutar el software
+Con los requisitos anteriores, ahora solo basta con ejecutar el siguiente comando:
+<br>
+```python manage.py runserver```
+<br>
+Esto iniciará el servidor y en la consola de comandos se mostrará la URL de donde está el servidor.
