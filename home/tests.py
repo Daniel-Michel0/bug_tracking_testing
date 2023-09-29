@@ -83,3 +83,14 @@ class RegistrationTestCase(TestCase):
 
         self.assertEqual(response.status_code, 302) 
         self.assertFalse(self.client.login(username='invalid_username', password='invalid_password'))
+
+    def test_login_view_empty(self):
+        # Prueba iniciar sesión con campos vacios
+
+        response = self.client.post(reverse('home:login'), {
+            'username': '',
+            'password': ''
+        })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(self.client.login(username='', password=''))
