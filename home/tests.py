@@ -19,9 +19,8 @@ class RegistrationTestCase(TestCase):
             self.password
         )
 
-    def test_signup_view(self):
+    def test_signup_view_normal(self):
         # Prueba que al registrar un usuario, se crea un usuario en la base de datos
-        # y se redirige a la página de inicio
 
         new_username = "newtestuser"
         new_password = "newtestpassword123"
@@ -36,3 +35,16 @@ class RegistrationTestCase(TestCase):
 
         self.assertEqual(response.status_code, 302) # Comprueba que se redirige despues de un POST
         self.assertTrue(User.objects.filter(username=new_username).exists()) # Comprueba que se crea un usuario en la base de datos
+
+    def test_signup_view_repeat(self):
+        # Prueba que al registrar un usuario con datos repetidos
+        
+        response = self.client.post(reverse('home:signup'), {
+            'username': 'invalid_username',
+            'email': 'invalid_email',
+            'password1': 'short',  # Contraseña demasiado corta
+            'password2': 'short',  # Contraseña demasiado corta
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.filter(username='invalid_username').exists())  # Verifica que no se creó un usuario
