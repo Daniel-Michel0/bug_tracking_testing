@@ -94,3 +94,15 @@ class RegistrationTestCase(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertFalse(self.client.login(username='', password=''))
+
+    def test_logout_view(self):
+        # Prueba cerrar sesión
+
+        self.client.login(username=self.username, password=self.password)
+        
+        response = self.client.get(reverse('home:exit'))
+
+        self.assertEqual(response.status_code, 302)
+
+        user = self.client.session.get('_auth_user_id')
+        self.assertFalse(user)
