@@ -61,3 +61,14 @@ class RegistrationTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(User.objects.filter(username='').exists())
+
+    def test_login_view_normal(self):
+        # Prueba que al iniciar sesión con un usuario existente, se redirige a la pagina principal
+
+        response = self.client.post(reverse('home:login'), {
+            'username': self.username,
+            'password': self.password
+        })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.login(username=self.username, password=self.password))
