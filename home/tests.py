@@ -48,3 +48,16 @@ class RegistrationTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(User.objects.filter(username='invalid_username').exists())  # Verifica que no se creó un usuario
+
+    def test_signup_view_empty(self):
+        # Prueba que al registrar un usuario con datos vacios
+        
+        response = self.client.post(reverse('home:signup'), {
+            'username': '',
+            'email': '',
+            'password1': '',
+            'password2': '',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.filter(username='').exists())
