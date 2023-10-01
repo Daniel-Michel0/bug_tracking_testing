@@ -160,5 +160,23 @@ class ReasignacionBugAdminTestCase(TestCase):
         # Se verifica que el estado de la reasignación ahora sea 'APROBADO'
         self.assertEqual(reasignacion_actualizada.estado, "('APROBADO', 'reasignación aprobada')")
 
-    
+    # Prueba para verificar actualización de solicitud de reasignación al ser desaprobada
+    def test_reasignacion_desaprobada(self):
+        reasignacion = Reasignacion(
+            id_programador_inicial=self.programador1,
+            id_programador_final=self.programador2,
+            estado='PENDIENTE',
+            id_bug=self.bug
+        )
+        reasignacion.save()
+
+        self.reasignacion_admin.delete_model(request=None, obj=reasignacion)
+        reasignacion.refresh_from_db()
+        self.assertEqual(reasignacion.estado, "('DESAPROBADO', 'reasignación desaprobada')")
+
+
+
+
+
+
         
