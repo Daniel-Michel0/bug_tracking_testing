@@ -23,3 +23,9 @@ Con los requisitos anteriores, ahora solo basta con ejecutar el siguiente comand
 ```python manage.py runserver```
 <br>
 Esto iniciará el servidor y en la consola de comandos se mostrará la URL de donde está el servidor.
+
+### Ejecutar los tests
+Basta con ejecutar el comando:
+```python manage.py test```
+<br>
+Notar que no es necesario tener el servidor funcionando para realizar los tests, tampoco tener datos en la base de datos ya que estos se crean y borran al hacer los tests.
