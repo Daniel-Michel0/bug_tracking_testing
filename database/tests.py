@@ -111,4 +111,22 @@ class ReasignacionBugAdminTestCase(TestCase):
         # Se verifica que la excepción de validación sea el mensaje establecido
         self.assertIn("No se puede reasignar a la misma persona.", str(context.exception))
     
+    
+    # Prueba para verificar actualización de bug al nuevo empleado
+    def test_reasignacion_updates_bug_programador(self):
+        # Realiza una reasignación válida
+        reasignacion = Reasignacion(
+            id_programador_inicial=self.programador1,
+            id_programador_final=self.programador2,
+            estado='PENDIENTE',
+            id_bug=self.bug
+        )
+        # Se guarda la reasignación y verifica que se actualice el bug
+        response = self.reasignacion_admin.save_model(request=None, obj=reasignacion, form=None, change=None)
+        bug = Bug.objects.get(id_bug=self.bug.id_bug)
+
+        # Se verifica que el bug ahora tenga el nuevo empleado asignado
+        self.assertEqual(bug.id_programador, self.programador2)
+
+    
         

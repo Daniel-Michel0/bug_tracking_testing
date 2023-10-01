@@ -102,7 +102,6 @@ class ImagenAdmin(admin.ModelAdmin):
         return False
     
     def has_change_permission(self, request,obj=None):
-
         return False
 
 
@@ -113,7 +112,6 @@ class AvancesAdmin(admin.ModelAdmin):
         return False
     
     def has_change_permission(self, request,obj=None):
-
         return False
 
 
@@ -140,37 +138,6 @@ class ProgramadorChoiceField(ModelChoiceField):
 
         return f'{obj.user.username} -  TOTAL BUGS: {total_bugs} | BAJA: {bugs_baja} | MEDIA: {bugs_media} | ALTA: {bugs_alta} | URGENTE: {bugs_urgente}'
         # return f'{obj.nombre_programador} ({obj.bug_set.count()} bugs asociados)'
-
-
-# def rechazar_reasignacion(modeladmin, request, queryset):
-#     queryset.update(estado='DESAPROBADO')
-# class DesaprobarAction(admin.Action):
-#     """
-#     Acción personalizada para cambiar el estado a 'DESAPROBADO'.
-#     """
-#     short_description = 'DESAPROBAR'  # Texto del botón
-
-#     def __init__(self, func=None, name=None, short_description=None):
-#         super().__init__(func, name, short_description)
-#         self.short_description = short_description or self.short_description
-
-#     def delete_models(self, modeladmin, request, queryset):
-#         # Cambiar el estado a 'DESAPROBADO' para todos los objetos seleccionados
-#         queryset.update(estado='DESAPROBADO')
-
-#     def get_success_message(self, queryset):
-#         count = queryset.count()
-#         return f"{count} reasignaciones fueron desaprobadas."
-
-#     def get_actions(self, request):
-#         actions = super().get_actions(request)
-#         if 'delete_selected' in actions:
-#             # Eliminar la acción predeterminada de eliminar
-#             del actions['delete_selected']
-#         return actions
-
-#     # Texto para el mensaje de confirmación
-#     delete_models.short_description = 'DESAPROBAR'
 
 
 class ReasignacionBugAdmin(admin.ModelAdmin):
