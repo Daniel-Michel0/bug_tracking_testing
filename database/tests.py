@@ -121,12 +121,28 @@ class ReasignacionBugAdminTestCase(TestCase):
             estado='PENDIENTE',
             id_bug=self.bug
         )
-        # Se guarda la reasignación y verifica que se actualice el bug
+        # Se guarda la reasignación y se verifica que se actualice el bug
         response = self.reasignacion_admin.save_model(request=None, obj=reasignacion, form=None, change=None)
         bug = Bug.objects.get(id_bug=self.bug.id_bug)
 
         # Se verifica que el bug ahora tenga el nuevo empleado asignado
         self.assertEqual(bug.id_programador, self.programador2)
+    
+    # Prueba para verificar actualización de solicitud de reasignación al ser aprobada
+    def test_reasignacion_updates_estado(self):
+        reasignacion = Reasignacion(
+            id_programador_inicial=self.programador1,
+            id_programador_final=self.programador2,
+            estado='PENDIENTE',
+            id_bug=self.bug
+        )
+
+        # Se guarda la reasignación y se verifica que el estado se actualice a 'APROBADO'
+        response = self.reasignacion_admin.save_model(request=None, obj=reasignacion, form=None, change=None)
+        reasignacion_actualizada = Reasignacion.objects.get(id_reasignacion=reasignacion.id_reasignacion)
+
+        # Se verifica que el estado de la reasignación ahora sea 'APROBADO'
+        self.assertEqual(reasignacion_actualizada.estado, "('APROBADO', 'reasignación aprobada')")
 
     
         
