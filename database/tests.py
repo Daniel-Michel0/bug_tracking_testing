@@ -1,10 +1,18 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.contrib import admin
 from .models import *
+from database.admin import ReasignacionBugAdmin
+from django.test import RequestFactory
+from django.contrib.admin.sites import AdminSite
+
 # Create your tests here.
 
 class DataBaseTest(TestCase):
     def setUp(self):
-        #crear usuarios
+        #crear usuarios                             
 
         u1 = Usuario.objects.create("grupo7@is2.com")
         u1.save()
@@ -66,4 +74,41 @@ class DataBaseTest(TestCase):
         
     def usuarioTest(self):
         u1 = Usuario.objects.get(correo_usuario="grupo7@is2.com")
+        
+
+class ReasignacionBugAdminTestCase(TestCase):
+    def setUp(self):
+        # Configura el sitio de administración
+        self.site = AdminSite()
+        self.reasignacion_admin = ReasignacionBugAdmin(Reasignacion, self.site)
+
+        # Crea usuarios y otros objetos necesarios
+        self.user1 = User.objects.create_user(username='user1', password='password')
+        self.user2 = User.objects.create_user(username='user2', password='password')
+        self.programador1 = Programador.objects.create(user=self.user1)
+        self.programador2 = Programador.objects.create(user=self.user2)
+        self.proyecto = Proyecto.objects.create(nombre_proyecto='Proyecto de prueba')
+        self.bug = Bug.objects.create(
+            titulo='Bug de prueba',
+            descripcion='Descripción del bug de prueba',
+            prioridad='BAJA',
+            estado='PENDIENTE',
+            id_proyecto=self.proyecto,
+            id_programador=self.programador1
+        )
+        
+    # Prueba para  realizar una reasignación a la misma persona
+    def test_reasignacion_same_person(self):
+        reasignacion = Reasignacion(
+            id_programador_inicial=self.programador1,
+            id_programador_final=self.programador1,
+            estado='PENDIENTE',
+            id_bug=self.bug
+        )
+        # Se verifica que se genere la excepción de validación y se intenta guardar la reasignación
+        with self.assertRaises(ValidationError) as context:
+            reasignacion.full_clean()
+        # Se verifica que la excepción de validación sea el mensaje establecido
+        self.assertIn("No se puede reasignar a la misma persona.", str(context.exception))
+    
         

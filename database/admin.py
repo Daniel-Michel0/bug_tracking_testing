@@ -175,11 +175,8 @@ class ProgramadorChoiceField(ModelChoiceField):
 
 class ReasignacionBugAdmin(admin.ModelAdmin):
     
-    list_display = ('id_reasignacion', 'id_bug',
-                    'id_programador_inicial', 'fecha_reasignacion')
-    # 'id_programador_final_display'
+    list_display = ('id_reasignacion', 'id_bug','id_programador_inicial', 'fecha_reasignacion')
     readonly_fields = ('id_programador_inicial', 'id_bug')
-    # actions = [DesaprobarAction.delete_models]
 
     def get_fieldsets(self, request, obj=None):
         fieldsets = (
@@ -219,29 +216,6 @@ class ReasignacionBugAdmin(admin.ModelAdmin):
                 except Bug.DoesNotExist:
                     pass
         super().save_model(request, obj, form, change)
-
-    # def get_actions(self, request):
-    #     actions = super().get_actions(request)
-    #     if 'delete_selected' in actions:
-    #         # Eliminar la acción predeterminada de eliminar
-    #         del actions['delete_selected']
-    #     return actions
-
-    # actions = ['desaprobar_reasignacion']
-
-    # def desaprobar_reasignacion(self, request, queryset):
-    #     queryset.update(estado='desaprobado')
-    # desaprobar_reasignacion.short_description = 'Desaprobar'
-
-    # def get_actions(self, request):
-    #     actions = super().get_actions(request)
-
-    #     if 'delete_selected' in actions:
-    #         actions['delete_selected'].short_description = 'Desaprobar'
-
-    #     return actions
-
-    # PERMITE QUE AL PRESIONAR EL BOTÓN ELIMINAR SE CAMBIE EL ESTADO
 
     def delete_model(self, request, obj=None):
         obj.estado = ('DESAPROBADO', 'reasignación desaprobada')
