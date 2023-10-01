@@ -97,7 +97,7 @@ class ReasignacionBugAdminTestCase(TestCase):
             id_programador=self.programador1
         )
         
-    # Prueba para  realizar una reasignación a la misma persona
+    # Prueba para  realizar una reasignación a un mismo empleado
     def test_reasignacion_same_person(self):
         reasignacion = Reasignacion(
             id_programador_inicial=self.programador1,
@@ -110,6 +110,22 @@ class ReasignacionBugAdminTestCase(TestCase):
             reasignacion.full_clean()
         # Se verifica que la excepción de validación sea el mensaje establecido
         self.assertIn("No se puede reasignar a la misma persona.", str(context.exception))
+    
+    # Prueba para realizar una reasignación válida a un empleado diferente
+    def test_reasignacion_different_person(self):
+        
+        user = User.objects.create(username='usuario_prueba')
+        programador2 = Programador.objects.create(user=user)
+
+
+        reasignacion = Reasignacion(
+            id_programador_inicial=self.programador1,
+            id_programador_final=programador2,
+            estado='PENDIENTE',
+            id_bug=self.bug
+        )
+        # Se guarda la reasignación
+        reasignacion.full_clean()
     
     
     # Prueba para verificar actualización de bug al nuevo empleado
