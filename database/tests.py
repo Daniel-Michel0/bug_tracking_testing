@@ -313,4 +313,14 @@ class ReporteBugAdminTestCase(TestCase):
         for field in expected_list_filter:
             self.assertIn(field, list_filter)
 
+    # Prueba verificación vista solo de reportes de bug pendientes por parte de admin
+    def test_get_queryset(self):
+        
+        request = None
+        qs = self.reporte_bug_admin.get_queryset(request)
+        self.assertQuerysetEqual(
+            qs, ReporteBug.objects.filter(estado=('PENDIENTE', 'reporte en estado pendiente')), transform=lambda x: x
+        )
+
+    
     
