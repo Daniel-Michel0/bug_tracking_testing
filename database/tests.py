@@ -322,5 +322,9 @@ class ReporteBugAdminTestCase(TestCase):
             qs, ReporteBug.objects.filter(estado=('PENDIENTE', 'reporte en estado pendiente')), transform=lambda x: x
         )
 
-    
+    # Prueba verificación permisos denegados par añadir reportes de bug por parte del admin
+    def test_has_add_permission(self):
+        request = None
+        has_permission = self.reporte_bug_admin.has_add_permission(request)
+        self.assertFalse(has_permission)
     
