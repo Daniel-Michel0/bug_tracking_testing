@@ -235,17 +235,19 @@ class BugAdminTestCase(TestCase):
         self.site = AdminSite()
         self.bug_admin = BugAdmin(Bug, self.site)
 
+    # Prueba verificación campos correctos en list_display de Bug en vista de admin
     def test_list_display(self):
-        # Prueba verificación campos correctos en list_display de Bug en vista de admin
+        
         list_display = self.bug_admin.get_list_display(None)
         
         expected_display = ('id_bug', 'titulo', 'id_proyecto', 'estado', 'prioridad', 'id_programador')
         
         for field in expected_display:
             self.assertIn(field, list_display)
-            
+    
+    # Prueba verificación fieldsets contengan los campos esperados de Bug en vista de admin
     def test_fieldsets(self):
-        # Prueba verificación fieldsets contengan los campos esperados de Bug en vista de admin
+        
         fieldsets = self.bug_admin.get_fieldsets(None)
         
         expected_fieldsets = (
@@ -265,8 +267,9 @@ class BugAdminTestCase(TestCase):
         for field in expected_search_fields:
             self.assertIn(field, search_fields)
 
+    # Prueba verificación campos de filtro configurados correctamente
     def test_list_filter(self):
-        # Prueba verificación campos de filtro configurados correctamente
+        
         list_filter = self.bug_admin.list_filter
         
         expected_list_filter = ('id_proyecto', 'estado')
@@ -275,4 +278,39 @@ class BugAdminTestCase(TestCase):
             self.assertIn(field, list_filter)
 
     
+class ReporteBugAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.reporte_bug_admin = ReporteBugAdmin(ReporteBug, self.site)
 
+    # Prueba verificación campos correctos en list_display de ReporteBug en vista de admin
+    def test_list_display(self):
+        
+        list_display = self.reporte_bug_admin.get_list_display(None)
+        
+        expected_display = ('id_reporte', 'titulo', 'fecha_reporte', 'id_proyecto', 'estado', 'id_bug')
+        
+        for field in expected_display:
+            self.assertIn(field, list_display)
+    
+    # Prueba verificación fieldsets contengan los campos esperados de ReporteBug en vista de admin
+    def test_fieldsets(self):
+        fieldsets = self.reporte_bug_admin.get_fieldsets(None)
+        
+        expected_fieldsets = (
+            ('Información entregada por el usuario', {'fields': ('titulo', 'reporte', 'id_usuario')}),
+            ('Información extra', {'fields': ('estado', 'id_proyecto', 'id_bug')}),
+        )
+        self.assertEqual(fieldsets, expected_fieldsets)
+
+    # Prueba verificación campos de filtro configurados correctamente
+    def test_list_filter(self):
+        
+        list_filter = self.reporte_bug_admin.list_filter
+        
+        expected_list_filter = ('estado', 'id_proyecto')
+        
+        for field in expected_list_filter:
+            self.assertIn(field, list_filter)
+
+    
