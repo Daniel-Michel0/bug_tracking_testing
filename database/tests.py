@@ -176,6 +176,15 @@ class ReasignacionBugAdminTestCase(TestCase):
         self.assertEqual(reasignacion.estado, "('DESAPROBADO', 'reasignación desaprobada')")
     
 
+# Prueba verificación sobre permisos de cambios denegados para admin en el campo Usuario
+class UsuarioAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.usuario_admin = UsuarioAdmin(Usuario, self.site) 
+
+    def test_has_change_permission(self):
+        has_change_permission = self.usuario_admin.has_change_permission(None, None)
+        self.assertFalse(has_change_permission)
 
 
 

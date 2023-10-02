@@ -12,18 +12,14 @@ from django.utils.html import format_html
 
 
 
-
 @admin.register(Usuario)
-class ReporteBugAdmin(admin.ModelAdmin):
-    def has_change_permission(self, request,obj=None):
+class UsuarioAdmin(admin.ModelAdmin):
+    def has_change_permission(self, request, obj=None):
         return False
 
-
 @admin.register(Programador)
-class ReporteBugAdmin(admin.ModelAdmin):
+class ProgramadorAdmin(admin.ModelAdmin):
     list_display = ('user',)
-    exclude      = ('nombre_programador', 'correo_programador')
-
 
 @admin.register(Cargo)
 class ReporteBugAdmin(admin.ModelAdmin):
