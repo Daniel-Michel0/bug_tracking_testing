@@ -7,43 +7,52 @@ from django.contrib.auth import get_user_model
 class BuglistTestCase(TestCase):
 
     def setUp(self):
-        self.username = "testuser"
-        self.password = "testpassword123"
-        self.email = "test@email.com"
 
-        self.user = get_user_model().objects.create_user(
-            self.username,
-            self.email,
-            self.password
+        # Crea un usuario de muestra
+        usuario = User.objects.create_user(
+            username='usuario',
+            password='usuario123',
+            email='usuario@usuario',
         )
 
-        self.programador = Programador.objects.create(
-            user=self.user,
-        )
+        usuario_ = Usuario.objects.last()
 
-        self.usuario = Usuario.objects.create(
-            user=self.user,
-        )
+        # Crea 5 usuarios programadores de muestra
+        programadores = []
+        for i in range(1, 6):
+            programador = Programador.objects.create(
+                user=User.objects.create_user(
+                    username=f'programador{i}',
+                    password=f'programador{i}123',
+                    email=f'programador{i}@email',
+                )
+            )
+            programadores.append(programador)
 
-        self.proyecto = Proyecto.objects.create(
-            nombre_proyecto="Proyecto de prueba"
-        )
+        # Crea 5 proyectos de muestra
+        proyectos = []
+        for i in range(1, 6):
+            proyecto = Proyecto.objects.create(nombre_proyecto=f'Proyecto de prueba {i}')
+            proyectos.append(proyecto)
 
-        self.reporte = ReporteBug.objects.create(
-            id_proyecto=self.proyecto,
-            titulo="Reporte de prueba",
-            reporte="Este es un reporte de prueba",
-            fecha_reporte="2020-01-01",
-            estado="Pendiente",
-            id_usuario = self.usuario
-        )
+        # Crea 25 reportes de bugs de muestra, asignando 5 reportes a cada proyecto
+        for i in range(1, 26):
+            proyecto = proyectos[(i - 1) % 5]  # Asigna 5 reportes a cada proyecto en un ciclo
+            ReporteBug.objects.create(
+                titulo=f'Reporte de prueba {i}',
+                fecha_reporte='2023-10-01',
+                id_proyecto=proyecto,
+                id_usuario= usuario_,
+            )
 
-        self.bug = Bug.objects.create(
-            id_reporte=self.reporte,
-            titulo="Bug de prueba",
-            descripcion="Este es un bug de prueba",
-            fecha_reporte="2020-01-01",
-            estado="Pendiente",
-            id_programador=self.programador
-        )
-
+        # Crea 5 bugs de muestra, asignando 1 bug a cada proyecto
+        for i in range(1, 6):
+            proyecto = proyectos[i - 1]
+            programador = programadores[i - 1]
+            Bug.objects.create(
+                titulo=f'Bug de prueba {i}',
+                fecha_reporte='2023-10-01',
+                estado='ASIGNADO',
+                id_proyecto=proyecto,
+                id_programador=programador,
+            )
