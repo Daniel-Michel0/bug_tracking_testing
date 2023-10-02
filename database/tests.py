@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import *
-from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin
+from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin
 from django.test import RequestFactory
 from django.contrib.admin.sites import AdminSite
 
@@ -203,5 +203,31 @@ class ProgramadorAdminTestCase(TestCase):
         self.assertIn('user', list_display)
 
 
+class CargoAdminTestCase(TestCase):
+    def setUp(self):
+        # Configura el sitio de administración
+        self.site = AdminSite()
+        self.cargo_admin = CargoAdmin(Cargo, self.site)  # Crea una instancia de CargoAdmin
+
+    # Prueba verificación campos correctos en list_display de Cargo en vista de admin
+    def test_list_display(self):
+        
+        list_display = self.cargo_admin.get_list_display(None)
+        
+        self.assertIn('id_programador', list_display)
+        self.assertIn('cargo', list_display)
+        self.assertIn('id_proyecto', list_display)
+
+    # Prueba verificación fieldsets contengan los campos esperados de Cargo en vista de admin
+    def test_fieldsets(self):
+        
+        fieldsets = self.cargo_admin.get_fieldsets(None)
+        
+        expected_fieldsets = (
+            ('Proyecto', {'fields': ('id_proyecto',)}),
+            ('Información del programador', {'fields': ('id_programador', 'cargo')}),
+        )
+        
+        self.assertEqual(fieldsets, expected_fieldsets)
 
 

@@ -22,7 +22,7 @@ class ProgramadorAdmin(admin.ModelAdmin):
     list_display = ('user',)
 
 @admin.register(Cargo)
-class ReporteBugAdmin(admin.ModelAdmin):
+class CargoAdmin(admin.ModelAdmin):
     list_display = ('id_programador', 'cargo', 'id_proyecto')
     
     fieldsets = (
