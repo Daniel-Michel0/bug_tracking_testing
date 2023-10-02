@@ -255,7 +255,24 @@ class BugAdminTestCase(TestCase):
         
         self.assertEqual(fieldsets, expected_fieldsets)
 
-    
+    # Prueba verificación campos de búsqueda configurados correctamente
+    def test_search_fields(self):
+        
+        search_fields = self.bug_admin.search_fields
+        
+        expected_search_fields = ('id_proyecto', 'id_programador')
+        
+        for field in expected_search_fields:
+            self.assertIn(field, search_fields)
+
+    def test_list_filter(self):
+        # Prueba verificación campos de filtro configurados correctamente
+        list_filter = self.bug_admin.list_filter
+        
+        expected_list_filter = ('id_proyecto', 'estado')
+        
+        for field in expected_list_filter:
+            self.assertIn(field, list_filter)
 
     
 
