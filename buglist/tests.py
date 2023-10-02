@@ -126,3 +126,17 @@ class BuglistTestCase(TestCase):
 
         # Verificar que el número de página en el contenido de la respuesta sea el número de página correcto (en este caso, 4)
         self.assertEqual(match.group(1), '4')
+    
+    def test_reportlist_view_pagination_page_invalid(self):
+        # Prueba que la vista reportlist muestre la última página válida cuando se ingresa un número de página inválido
+        response = self.client.get(reverse('buglist:report_list_pagination') + '?report_page=999')
+        self.assertEqual(response.status_code, 200)
+
+        # Extraer el contenido HTML de la respuesta
+        content = response.content.decode('utf-8')
+
+        # Usar una expresión regular para encontrar el número de página en la clase "current-page"
+        match = re.search(r'id="report-current-page">(\d+)</span>', content)
+
+        # Verificar que el número de página sea el de la ultima pagina valida (en este caso, 5)
+        self.assertEqual(match.group(1), '5')
