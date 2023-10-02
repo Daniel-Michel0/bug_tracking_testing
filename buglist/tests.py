@@ -56,3 +56,21 @@ class BuglistTestCase(TestCase):
                 id_proyecto=proyecto,
                 id_programador=programador,
             )
+    
+    def test_view_normal(self):
+        # Prueba que la vista normal se carga correctamente
+        response = self.client.get(reverse('buglist:bug_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'buglist/buglist.html')
+
+    def test_buglist_view_pagination(self):
+        # Prueba que la vista buglist se carga correctamente
+        response = self.client.get(reverse('buglist:bug_list_pagination'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'buglist/buglist.html')
+
+    def test_reportlist_view_pagination(self):
+        # Prueba que la vista reportlist se carga correctamente
+        response = self.client.get(reverse('buglist:report_list_pagination'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'buglist/buglist.html')
