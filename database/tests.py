@@ -341,4 +341,19 @@ class ImagenAdminTestCase(TestCase):
     # Prueba verificación permisos denegados par modificar imagenes de bugs por parte del admin
     def test_has_change_permission(self):
         has_change_permission = self.imagen_admin.has_change_permission(None, None)
-        self.assertFalse(has_change_permission) 
+        self.assertFalse(has_change_permission)
+
+class AvancesAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.avances_admin = AvancesAdmin(Avances, self.site)
+
+    # Prueba verificación permisos denegados para añadir avances de empleados en bugs por parte del admin
+    def test_has_add_permission(self):
+        has_add_permission = self.avances_admin.has_add_permission(None)
+        self.assertFalse(has_add_permission)
+
+    # Prueba verificación permisos denegados par modificar avances de empleados en bugs por parte del admin
+    def test_has_change_permission(self):
+        has_change_permission = self.avances_admin.has_change_permission(None, None)
+        self.assertFalse(has_change_permission)
