@@ -39,7 +39,7 @@ class AvancesInline(admin.TabularInline):
     model = Avances
 
 @admin.register(Bug)
-class ReporteBugAdmin(admin.ModelAdmin):
+class BugAdmin(admin.ModelAdmin):
     list_display  = ('id_bug', 'titulo', 'id_proyecto',
                     'estado', 'prioridad', 'id_programador')
     

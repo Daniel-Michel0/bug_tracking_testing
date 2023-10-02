@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import *
-from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin
+from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin, BugAdmin, AvancesInline
 from django.test import RequestFactory
 from django.contrib.admin.sites import AdminSite
 
@@ -230,4 +230,32 @@ class CargoAdminTestCase(TestCase):
         
         self.assertEqual(fieldsets, expected_fieldsets)
 
+class BugAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.bug_admin = BugAdmin(Bug, self.site)
+
+    def test_list_display(self):
+        # Prueba verificación campos correctos en list_display de Bug en vista de admin
+        list_display = self.bug_admin.get_list_display(None)
+        
+        expected_display = ('id_bug', 'titulo', 'id_proyecto', 'estado', 'prioridad', 'id_programador')
+        
+        for field in expected_display:
+            self.assertIn(field, list_display)
+            
+    def test_fieldsets(self):
+        # Prueba verificación fieldsets contengan los campos esperados de Bug en vista de admin
+        fieldsets = self.bug_admin.get_fieldsets(None)
+        
+        expected_fieldsets = (
+            ('Informacion del Bug', {'fields': ('titulo', 'descripcion', 'id_proyecto', 'estado', 'prioridad')}),
+            ('Personal encargado', {'fields': ('id_programador',)}),
+        )
+        
+        self.assertEqual(fieldsets, expected_fieldsets)
+
+    
+
+    
 
