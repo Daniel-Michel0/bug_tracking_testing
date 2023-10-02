@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import *
-from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin, BugAdmin, AvancesInline
+from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin, BugAdmin, AvancesInline, ImagenAdmin
 from django.test import RequestFactory
 from django.contrib.admin.sites import AdminSite
 
@@ -322,9 +322,23 @@ class ReporteBugAdminTestCase(TestCase):
             qs, ReporteBug.objects.filter(estado=('PENDIENTE', 'reporte en estado pendiente')), transform=lambda x: x
         )
 
-    # Prueba verificación permisos denegados par añadir reportes de bug por parte del admin
+    # Prueba verificación permisos denegados para añadir reportes de bug por parte del admin
     def test_has_add_permission(self):
         request = None
         has_permission = self.reporte_bug_admin.has_add_permission(request)
         self.assertFalse(has_permission)
     
+class ImagenAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.imagen_admin = ImagenAdmin(Imagen, self.site)
+
+    # Prueba verificación permisos denegados para añadir imagenes de bugs por parte del admin
+    def test_has_add_permission(self):
+        has_add_permission = self.imagen_admin.has_add_permission(None)
+        self.assertFalse(has_add_permission)
+
+    # Prueba verificación permisos denegados par modificar imagenes de bugs por parte del admin
+    def test_has_change_permission(self):
+        has_change_permission = self.imagen_admin.has_change_permission(None, None)
+        self.assertFalse(has_change_permission) 
