@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test.client import RequestFactory
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import *
-from database.admin import ReasignacionBugAdmin
+from database.admin import ReasignacionBugAdmin, ReporteBugAdmin
 from django.test import RequestFactory
 from django.contrib.admin.sites import AdminSite
 
@@ -173,8 +174,20 @@ class ReasignacionBugAdminTestCase(TestCase):
         self.reasignacion_admin.delete_model(request=None, obj=reasignacion)
         reasignacion.refresh_from_db()
         self.assertEqual(reasignacion.estado, "('DESAPROBADO', 'reasignación desaprobada')")
+    
 
+# Prueba para verificar que el administrador no tiene permisos de edición para reportes de bug
+class ReporteBugAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.admin_instance = ReporteBugAdmin(User, self.site)
+        self.factory = RequestFactory()
 
+    def test_has_change_permission_always_false(self):
+        request = self.factory.get('/')
+        request.user = User.objects.create_user('testuser', password='testpassword')
+        has_permission = self.admin_instance.has_change_permission(request)
+        self.assertFalse(has_permission)
 
 
 
