@@ -94,7 +94,7 @@ class BuglistTestCase(TestCase):
         content = response.content.decode('utf-8')  # Decodificar el contenido a una cadena UTF-8
 
         # Usar una expresión regular para encontrar el número de página en la clase "current-page"
-        match = re.search(r'class="current-page">(\d+)</span>', content)
+        match = re.search(r'id="bug-current-page">(\d+)</span>', content)
     
         # Verificar que el número de página en el contenido de la respuesta sea el número de página correcto (en este caso, 2)
         self.assertEqual(match.group(1), '2')
@@ -108,7 +108,7 @@ class BuglistTestCase(TestCase):
         content = response.content.decode('utf-8')
 
         # Usar una expresión regular para encontrar el número de página en la clase "current-page"
-        match = re.search(r'class="current-page">(\d+)</span>', content)
+        match = re.search(r'id="bug-current-page">(\d+)</span>', content)
 
         # Verificar que el número de página sea el de la ultima pagina valida (en este caso, 2)
         self.assertEqual(match.group(1), '2')
@@ -122,8 +122,7 @@ class BuglistTestCase(TestCase):
         content = response.content.decode('utf-8')
 
         # Usar una expresión regular para encontrar el número de página en la clase "current-page"
-        match = re.search(r'class="current-page">(\d+)</span>', content)
+        match = re.search(r'id="report-current-page">(\d+)</span>', content)
 
         # Verificar que el número de página en el contenido de la respuesta sea el número de página correcto (en este caso, 4)
         self.assertEqual(match.group(1), '4')
-
