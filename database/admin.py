@@ -22,10 +22,7 @@ class ReporteBugAdmin(admin.ModelAdmin):
 @admin.register(Programador)
 class ReporteBugAdmin(admin.ModelAdmin):
     list_display = ('user',)
-    # exclude      = ('nombre_programador', 'correo_programador')
-
-
-admin.site.register(Proyecto)
+    exclude      = ('nombre_programador', 'correo_programador')
 
 
 @admin.register(Cargo)
@@ -102,6 +99,7 @@ class ImagenAdmin(admin.ModelAdmin):
         return False
     
     def has_change_permission(self, request,obj=None):
+
         return False
 
 
@@ -112,6 +110,7 @@ class AvancesAdmin(admin.ModelAdmin):
         return False
     
     def has_change_permission(self, request,obj=None):
+
         return False
 
 
