@@ -187,7 +187,20 @@ class UsuarioAdminTestCase(TestCase):
         self.assertFalse(has_change_permission)
 
 
+# Prueba verificación campo 'user' en list_display de Programador en vista de admin
+class ProgramadorAdminTestCase(TestCase):
+    def setUp(self):
+        self.site = AdminSite()
+        self.programador_admin = ProgramadorAdmin(Programador, self.site)
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.programador = Programador.objects.create(user=self.user)
 
+    def test_list_display(self):
+        # se obtiene el list_display del administrador de Programador
+        list_display = self.programador_admin.get_list_display(None)
+        
+        # Se verifica que 'user' esté presente en list_display
+        self.assertIn('user', list_display)
 
 
 
