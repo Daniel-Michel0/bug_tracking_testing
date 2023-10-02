@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import *
-from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin, BugAdmin, AvancesInline, ImagenAdmin
+from database.admin import ReasignacionBugAdmin, ReporteBugAdmin, ProgramadorAdmin, UsuarioAdmin, CargoAdmin, BugAdmin, AvancesInline, ImagenAdmin, AvancesAdmin
 from django.test import RequestFactory
 from django.contrib.admin.sites import AdminSite
 
