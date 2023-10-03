@@ -68,7 +68,7 @@
               <span class="page-numbers">
                 {% for num in bug_page_obj.adjusted_elided_pages %}
                   {% if num == bug_page_obj.number %}
-                    <span class="current-page">{{ num }}</span>
+                    <span class="current-page" id="bug-current-page">{{ num }}</span>
                   {% elif num == bug_page_obj.paginator.ELLIPSIS %}
                     <span class="ellipsis">...</span>
                   {% else %}
@@ -142,7 +142,7 @@
               <span class="page-numbers">
                 {% for num in report_page_obj.adjusted_elided_pages %}
                   {% if num == report_page_obj.number %}
-                    <span class="current-page">{{ num }}</span>
+                    <span class="current-page" id="report-current-page">{{ num }}</span>
                   {% elif num == report_page_obj.paginator.ELLIPSIS %}
                     <span class="ellipsis">...</span>
                   {% else %}
