@@ -92,15 +92,11 @@ WSGI_APPLICATION = 'bug_tracking.wsgi.application'
 
 if 'test' in sys.argv:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'mytestdatabase',
-            'USER': 'postgres',
-            'PASSWORD': '1234',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',  # Utilizar una base de datos en memoria
     }
+}
 else:
     # Configuración de la base de datos en vivo
     DATABASES = {
