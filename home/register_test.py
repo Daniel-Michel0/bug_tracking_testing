@@ -6,21 +6,20 @@ import time
 
 import traceback
 
-# Set the path to the Chromedriver executable
+# Path al driver de chrome
 chromedriver_path = 'bug_report/chromedriver-win64/chromedriver.exe'
 
-# Create an Options object and set the executable_path in it
+# Se crean las opciones para el ejecutable
 chrome_options = Options()
 chrome_options.add_argument("--disable-logging")
 chrome_service = Service(chromedriver_path)
 
-# Configure the browser driver
+# Se configura el driver del navegador
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-# Realiza pruebas
+# Realizar pruebas
 try:
-    # Abre la página web
-    print("About to open webpage...")
+    # Abrir la página web
     driver.get('http://127.0.0.1:8000/signup')
 
     # Encontrar las entradas
@@ -41,7 +40,7 @@ try:
     # Esperar 2 segundos para que se procese
     time.sleep(2)
 
-    # Verifica si la página después de enviar el formulario contiene una cadena esperada
+    # Verificar si la página después de enviar el formulario contiene 'Iniciar sesión'
     assert 'Iniciar sesión' in driver.page_source
 
 # Manejar excepciones
