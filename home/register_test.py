@@ -3,8 +3,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
-
 import traceback
+
+# Userstory: Como usuario quiero poder registrarme en el sistema para poder acceder a las funcionalidades del sistema
 
 # Path al driver de chrome
 chromedriver_path = 'bug_report/chromedriver-win64/chromedriver.exe'

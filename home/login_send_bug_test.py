@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import Select
 import time
 import traceback
 
+# Userstory: Como usuario quiero poder reportar bugs para que el equipo de desarrollo se encargue de solucionarlos.
+
 # Path al driver de chrome
 chromedriver_path = 'bug_report/chromedriver-win64/chromedriver.exe'
 
