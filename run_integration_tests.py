@@ -16,6 +16,9 @@ def run_tests():
     print("Running asignacion_reportebug_test.py...")
     subprocess.run(["venv\Scripts\python.exe", "database/asignacion_reportebug_test.py"], check=True)
     
+    print("Running crear_casodebug_test.py...")
+    subprocess.run(["venv\Scripts\python.exe", "database/crear_casodebug_test.py"], check=True)
+    
     
 
 if __name__ == "__main__":
