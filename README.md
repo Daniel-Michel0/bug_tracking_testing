@@ -36,13 +36,13 @@ Para ejecutar los tests unitarios:
 Notar que no es necesario tener el servidor funcionando para realizar los tests, tampoco tener datos en la base de datos ya que estos se crean y borran al hacer los tests.
 <br>
 ### Ejecutar los tests de integración
-Se recomienda ejecutar los tests de integración en un navegador chrome versión >= 119.0.6045 (no es necesario tener el navegador activo al ejecutar los tests).
+Se recomienda ejecutar los tests de integración en un navegador chrome versión >= 119.0.6045 (no es necesario tener el navegador activo al ejecutar los tests, pero si el servidor).
 <br>
 Se pueden ejecutar todos los test de integración con el comando:
 <br>
 ```python run_integration_tests.py```
 <br>
-Donde se tiene que agregar el path a python en 'python path' (linea 4).
+Donde se tiene que agregar el path a python en 'python path' (linea 4), también se pueden ejecutar los tests por separado, basta ejecutar cada caso (nombrados en run_integration_tests.py) con python.
 
 
 
