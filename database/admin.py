@@ -155,8 +155,20 @@ class ReasignacionBugAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'id_programador_final':
-            kwargs['queryset'] = Programador.objects.all()
+            # Obtén el ID de la reasignación actual desde la URL
+            reasignacion_id = request.resolver_match.kwargs['object_id']
+
+            try:
+                # Intenta obtener la instancia de la reasignación
+                obj = Reasignacion.objects.get(pk=reasignacion_id)
+
+                # Excluye al programador inicial de la lista
+                kwargs['queryset'] = Programador.objects.exclude(id=obj.id_programador_inicial.id)
+            except Reasignacion.DoesNotExist:
+                kwargs['queryset'] = Programador.objects.all()
+
             kwargs['form_class'] = ProgramadorChoiceField
+
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
