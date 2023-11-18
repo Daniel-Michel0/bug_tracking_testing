@@ -10,5 +10,8 @@ def run_tests():
     print("Running login_send_bug_test.py...")
     subprocess.run([".\.venv\Scripts\python.exe", "home/login_send_bug_test.py"], check=True)
 
+    print("Running detail_test.py...")
+    subprocess.run([".\.venv\Scripts\python.exe", "bug_detail/detail_test.py"], check=True)
+
 if __name__ == "__main__":
     run_tests()
