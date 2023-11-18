@@ -18,6 +18,11 @@ import traceback
     click en él.
     - En la vista del detalle del bug se puede ver el estado del bug junto a otro detalles
 
+    Precondiciones:
+    - El usuario debe estar registrado
+    - El usuario debe haber creado un reporte
+    - El reporte ya debe estar asignado un bug
+
 """
 
 # Path al driver de chrome
