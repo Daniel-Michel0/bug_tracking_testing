@@ -23,6 +23,13 @@ import traceback
     - El usuario debe haber creado un reporte
     - El reporte ya debe estar asignado un bug
 
+    Pasos:
+    1. El usuario inicia sesión
+    2. El usuario desde la vista principal hace click en el reporte que desea ver
+    3. El usuario es redirigido a la vista de detalle del reporte
+    4. El usuario verifica que el reporte sea el que el envió
+    5. El usuario verifica que el estado del reporte sea 'En proceso'
+
 """
 
 # Path al driver de chrome
