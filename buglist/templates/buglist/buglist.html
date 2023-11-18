@@ -61,8 +61,8 @@
           <div class="pagination bug-pagination">
             <span class="step-links">
               {% if bug_page_obj.has_previous %}
-              <a href="#" onclick="loadBugPage(1, event)">&laquo;</a>
-              <a href="#" onclick="loadBugPage({{ bug_page_obj.previous_page_number }}, event)">&lsaquo;</a>
+              <a href="#" id="arrow-page-first" onclick="loadBugPage(1, event)">&laquo;</a>
+              <a href="#" id="arrow-page-prev" onclick="loadBugPage({{ bug_page_obj.previous_page_number }}, event)">&lsaquo;</a>
               {% endif %}
 
               <span class="page-numbers">
@@ -78,8 +78,8 @@
               </span>
 
               {% if bug_page_obj.has_next %}
-              <a href="#" onclick="loadBugPage({{ bug_page_obj.next_page_number }}, event)">&rsaquo;</a>
-              <a href="#" onclick="loadBugPage({{ bug_page_obj.paginator.num_pages }}, event)">&raquo;</a>
+              <a href="#" id="arrow-page-next" onclick="loadBugPage({{ bug_page_obj.next_page_number }}, event)">&rsaquo;</a>
+              <a href="#" id="arrow-page-last" onclick="loadBugPage({{ bug_page_obj.paginator.num_pages }}, event)">&raquo;</a>
               {% endif %}
             </span>
           </div>
