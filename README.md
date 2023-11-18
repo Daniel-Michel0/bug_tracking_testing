@@ -47,7 +47,7 @@ Donde se tiene que agregar el path a python en 'python path' (linea 4), también
 
 Es necesario primero llenar la base de datos con datos de prueba, para esto se debe ejecutar el comando:
 <br>
-    python manage.py insert_data
+```python manage.py insert_data```
 <br>
 
 
