@@ -35,6 +35,7 @@ Para ejecutar los tests unitarios:
 <br>
 Notar que no es necesario tener el servidor funcionando para realizar los tests, tampoco tener datos en la base de datos ya que estos se crean y borran al hacer los tests.
 <br>
+
 ### Ejecutar los tests de integración
 Se recomienda ejecutar los tests de integración en un navegador chrome versión >= 119.0.6045 (no es necesario tener el navegador activo al ejecutar los tests).
 <br>
@@ -44,7 +45,10 @@ Se pueden ejecutar todos los test de integración con el comando:
 <br>
 Donde se tiene que agregar el path a python en 'python path' (linea 4).
 
-
+Es necesario primero llenar la base de datos con datos de prueba, para esto se debe ejecutar el comando:
+<br>
+    python manage.py insert_data
+<br>
 
 
 ### Enlaces útiles
