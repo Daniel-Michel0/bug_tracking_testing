@@ -1,7 +1,7 @@
 import subprocess
 
 #* Python path
-python_path = "venv\Scripts\python.exe"
+python_path = ".venv\Scripts\python.exe"
 
 def run_tests():
     print("Running register_test.py...")
