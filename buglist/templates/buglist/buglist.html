@@ -38,13 +38,13 @@
                 <p>{{ Bug.titulo | truncatechars:90 }}</p>
               </td>
               <td>{{ Bug.fecha_reporte | naturaltime}}</td>
-              {%if Bug.estado == "('ASIGNADO', 'bug recien asignado')"%}
+              {%if Bug.estado == "ASIGNADO"%}
               <td><span class="status process">Asignado</span></td>
               {%endif%}
-              {%if Bug.estado == "('SOLUCIONADO', 'bug solucionado')"%}
+              {%if Bug.estado == "SOLUCIONADO"%}
               <td><span class="status completed">Solucionado</span></td>
               {%endif%}
-              {%if Bug.estado == "('EN PROCESO', 'bug esta proceso de revisión')"%}
+              {%if Bug.estado == "EN PROCESO"%}
               <td><span class="status pending">En proceso</span></td>
               {%endif%}
               <td>{{ Bug.id_proyecto }}</td>
@@ -113,8 +113,8 @@
           </thead>
           <tbody>
             {% if report_page_obj %}
-            <tr>
-              {% for ReporteBug in report_page_obj %}
+            {% for ReporteBug in report_page_obj %}
+            <tr onclick="{% if ReporteBug.id_bug %}window.location.href = '{% url 'detail:index' ReporteBug.id_bug.id_bug %}'{% endif %}">
               <td>
                 <p>{{ ReporteBug.id_reporte }}</p>
                 <img src={%static "images/logo.png"%}>
